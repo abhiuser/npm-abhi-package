@@ -92,8 +92,12 @@ function saveDataToDB(filePath, db, cb) {
 	var wrongFormatRows = [];
 	var mongoErrorRows = [];
 
-	csv.fromPath(filePath, {
+	/*csv.fromPath(filePath, {
 			headers: true
+		})*/
+	var stream = fs.createReadStream(filePath);
+	csv.fromStream(stream,{
+		       headers: true
 		})
 		.validate(function (data, next) {
 			console.log("count: " + (++count));
